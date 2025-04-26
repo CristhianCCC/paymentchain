@@ -17,6 +17,7 @@
     <postgres.version>42.7.2</postgres.version>
     <java-validation.version>2.0.1.Final</java-validation.version>
     <dockerfile-maven-version>1.4.13</dockerfile-maven-version>
+
     <!--propiedad para que pueda correr springcloud en los microservicios hijos-->
     <spring-cloud.version>2024.0.1</spring-cloud.version>
   </properties>
@@ -30,6 +31,8 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+
+
       <!--dependencia para que pueda correr springcloud en los microservicios hijos-->
       <dependency>
         <groupId>org.springframework.cloud</groupId>
@@ -68,6 +71,18 @@
     <dependency>
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-config</artifactId>
+    </dependency>
+
+    <!--dependencia para correr netflix client eureka /// para conectar los microservicios como clientes al servidor de eureka-->
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+    </dependency>
+
+    <!--dependencia para poder cargar actuator y acceder a sus apis-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
 
   </dependencies>
@@ -123,6 +138,8 @@
     </plugins>
   </build>
 
+
+  <!--modulos hijos que van a heredar de paymentchainparent-->
   <modules>
     <module>businessdomain</module>
     <module>infraestructuredomain</module>

@@ -10,6 +10,7 @@
         <module name="product" />
         <module name="configserver" />
         <module name="config-server-repo" />
+        <module name="eurekaServer" />
         <module name="transaction" />
         <module name="billing" />
         <module name="customer" />
@@ -24,6 +25,7 @@
       <module name="billing" options="-parameters" />
       <module name="configserver" options="" />
       <module name="customer" options="" />
+      <module name="eurekaServer" options="" />
       <module name="product" options="-parameters" />
       <module name="transaction" options="-parameters" />
     </option>
