@@ -13,6 +13,7 @@ import org.springframework.http.*;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.server.ResponseStatusException;
 import reactor.netty.http.client.HttpClient;
 import java.time.Duration;
 import java.util.Collections;
@@ -27,12 +28,17 @@ public class CustomerController {
 @Autowired
 private CustomerRepository customerRepository;
 
-private final WebClient.Builder webClientBuilder;
+//se inyecta webclientbuilder desde la instancia de la clase main como un balanceador de carga -------------------------
+@Autowired
+private WebClient.Builder webClientBuilder;
+
+//ya que se esta definiendo la instancia en la clase main no hay necesidad de tener este bloque de codigo aqui
+    /* private final WebClient.Builder webClientBuilder;
 
     public CustomerController(WebClient.Builder webClientBuilder, Environment env) {
         this.webClientBuilder = webClientBuilder;
         this.env = env;
-    }
+    }*/
 
     //se crea el cliente http
     HttpClient client = HttpClient.create()
@@ -137,15 +143,16 @@ public ResponseEntity<Customer> putCustomer (@PathVariable("id") Long id, @Reque
         //creacion de la instancia antes de crearla y usando ReactorNetty(client) como el constructor HTTP
         WebClient build = webClientBuilder.clientConnector(new ReactorClientHttpConnector(client))
                 //definicion de la url donde esta el servicio de product
-                .baseUrl("http://localhost:8080/product")
+                //con la implementacion de netflix eureka ya no se define por medio de localhost sino por el nombre del microservicio
+                .baseUrl("http://BUSINESSDOMAIN-PRODUCT/product")
                 //indicando que se enviaran y recibiran datos en formato json
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 //definiendo una variable que alamacenara la url
-                .defaultUriVariables(Collections.singletonMap("url", "http://localhost:8080/product"))
+                .defaultUriVariables(Collections.singletonMap("url", "http://BUSINESSDOMAIN-PRODUCT/product"))
                 //construccion de la instancia webclient
                 .build();
         //indicando que el metodo HTTP SERA GET y concatenando el id de producto con la url, por elemplo http://localhost:8080/product/{id}
-        JsonNode block = build.method(HttpMethod.GET).uri("/" + id)
+        JsonNode block =   build.method(HttpMethod.GET).uri("/" + id)
                 //Envía la solicitud al servidor y espera la respuesta
                 //.bodyToMono(JsonNode.class) Convierte el cuerpo de la respuesta en un Mono<JsonNode>.
                 .retrieve().bodyToMono(JsonNode.class).block();
@@ -160,7 +167,7 @@ public ResponseEntity<Customer> putCustomer (@PathVariable("id") Long id, @Reque
     //por lo tanto, no se realiza la iteracion como en el otro metodo
     private List<?> getTransactionIban(String iban){
         WebClient builder = webClientBuilder.clientConnector(new ReactorClientHttpConnector(client))
-                .baseUrl("http://localhost:8082/transaction")
+                .baseUrl("http://BUSINESSDOMAIN-TRANSACTION/transaction")
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
         //obteniendo el listado de transacciones
