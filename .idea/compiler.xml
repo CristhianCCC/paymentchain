@@ -14,6 +14,7 @@
         <module name="transaction" />
         <module name="billing" />
         <module name="customer" />
+        <module name="springBootAdmin" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -27,6 +28,7 @@
       <module name="customer" options="" />
       <module name="eurekaServer" options="" />
       <module name="product" options="-parameters" />
+      <module name="springBootAdmin" options="" />
       <module name="transaction" options="-parameters" />
     </option>
   </component>

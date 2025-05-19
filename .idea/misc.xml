@@ -10,6 +10,8 @@
         <option value="$PROJECT_DIR$/paymentchainparent/configserver/pom.xml" />
         <option value="$PROJECT_DIR$/paymentchainparent/infraestructuredomain/configserver/pom.xml" />
         <option value="$PROJECT_DIR$/paymentchainparent/infraestructuredomain/eurekaserver/pom.xml" />
+        <option value="$PROJECT_DIR$/paymentchainparent/springBootAdmin/pom.xml" />
+        <option value="$PROJECT_DIR$/paymentchainparent/infraestructuredomain/springBootAdmin/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
