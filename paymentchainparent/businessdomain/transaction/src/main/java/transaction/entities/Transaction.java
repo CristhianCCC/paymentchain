@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import transaction.entities.enums.TransactionChannel;
 import transaction.entities.enums.TransactionStatus;
+import transaction.entities.enums.TransactionType;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -37,7 +38,10 @@ public class Transaction {
     @Enumerated(EnumType.STRING)
     private TransactionChannel channel;
 
-    public Transaction(Long id, String reference, String accountIban, Date dateTime, Double amount, Double fee, String description, TransactionStatus status, TransactionChannel channel) {
+    @Enumerated(EnumType.STRING)
+    private TransactionType type;
+
+    public Transaction(Long id, String reference, String accountIban, Date dateTime, Double amount, Double fee, String description, TransactionStatus status, TransactionChannel channel, TransactionType type) {
         this.id = id;
         this.reference = reference;
         this.accountIban = accountIban;
@@ -47,6 +51,7 @@ public class Transaction {
         this.description = description;
         this.status = status;
         this.channel = channel;
+        this.type = type;
     }
 
     public Transaction() {
@@ -123,5 +128,13 @@ public class Transaction {
 
     public void setChannel(TransactionChannel channel) {
         this.channel = channel;
+    }
+
+    public TransactionType getType() {
+        return type;
+    }
+
+    public void setType(TransactionType type) {
+        this.type = type;
     }
 }

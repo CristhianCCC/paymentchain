@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import transaction.entities.Transaction;
+import transaction.exceptions.BusinessRuleException;
 import transaction.service.impl.TransactionServiceImpl;
 
 import java.util.Collections;
@@ -20,7 +21,7 @@ public class TransactionController {
 
 
     @PostMapping
-    public ResponseEntity<Transaction> createTransactions (@RequestBody Transaction transaction) {
+    public ResponseEntity<Transaction> createTransactions (@RequestBody Transaction transaction) throws BusinessRuleException {
         Transaction savedTransaction = transactionServiceImpl.createTransaction(transaction);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedTransaction);
     }

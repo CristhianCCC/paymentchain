@@ -1,11 +1,16 @@
 package transaction.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import transaction.Repository.TransactionRepository;
 import transaction.entities.Transaction;
 import transaction.entities.enums.TransactionStatus;
+import transaction.entities.enums.TransactionType;
+import transaction.exceptions.ApiExceptionHandler;
+import transaction.exceptions.BusinessRuleException;
 import transaction.service.TransactionService;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,27 +21,44 @@ public class TransactionServiceImpl implements TransactionService {
     TransactionRepository transactionRepository;
 
     @Override
-    public Transaction createTransaction(Transaction transaction) {
-        Transaction transactionCreated = new Transaction();
-        transactionCreated.setReference(transaction.getReference());
-        transactionCreated.setAccountIban(transaction.getAccountIban());
-        transactionCreated.setDateTime(transaction.getDateTime());
-        transactionCreated.setAmount(transaction.getAmount());
-        transactionCreated.setFee(transaction.getFee());
-        transactionCreated.setDescription(transaction.getDescription());
-        transactionCreated.setChannel(transaction.getChannel());
-        //si el fee es mayor a 0, se le resta el fee al total de la transaccion
-        if (transactionCreated.getFee() > 0) {
-           Double calcTotal = transactionCreated.getAmount() - transactionCreated.getFee();
-            transactionCreated.setAmount(calcTotal);
-        }
+    public Transaction createTransaction(Transaction transaction) throws BusinessRuleException {
+        double fee = transaction.getFee();
+        double amount = transaction.getAmount();
+        double total = amount - fee;
+        LocalDateTime date = transaction.getDateTime();
+
+
         //si la fecha es mayor el estado de la transaccion es pendiente
-        if (transactionCreated.getDateTime().isAfter(LocalDateTime.now())){
-            transactionCreated.setStatus(TransactionStatus.PENDIENTE);
+        if (date.isAfter(LocalDateTime.now())){
+            transaction.setStatus(TransactionStatus.PENDIENTE);
         } else {
-            transactionCreated.setStatus(transaction.getStatus());
+            transaction.setStatus(transaction.getStatus());
         }
-        return transactionRepository.save(transactionCreated);
+
+        //si es negativo es un retiro, si es positivo es un abono
+        if(amount > 0) {
+            transaction.setType(TransactionType.DEPOSIT);
+            transaction.setAmount(total);
+
+        //si es negativo se asigna un fee de 0.98
+        //se calcula el total en base al fee
+        //se setea la transferencia de tipo withdrawal y se setean tanto el fee como el total
+        } else {
+            fee = 0.98;
+            total = amount + fee;
+            transaction.setType(TransactionType.WITHDRAWAL);
+            transaction.setFee(fee);
+            transaction.setAmount(total);
+        }
+
+        //el retiro y/o transferencia no puede dejar la cuenta en 0
+        //el monto de la transaccion no puede ser 0
+        if(total ==0 || amount == 0 ) {
+            BusinessRuleException businessRuleException = new BusinessRuleException("1032", HttpStatus.BAD_REQUEST, "la cuenta no puede quedar en 0");
+            throw businessRuleException;
+        }
+
+        return transactionRepository.save(transaction);
     }
 
     @Override

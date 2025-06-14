@@ -1,5 +1,6 @@
 package com.paymentchain.customer.entities;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.transaction.Transaction;
 

@@ -1,13 +1,14 @@
 package transaction.service;
 
 import transaction.entities.Transaction;
+import transaction.exceptions.BusinessRuleException;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface TransactionService {
 
-    public Transaction createTransaction (Transaction transaction);
+    public Transaction createTransaction (Transaction transaction) throws BusinessRuleException;
 
     public Transaction updateTransaction (Long transactionId, Transaction trasactionUpdated);
 
@@ -18,5 +19,6 @@ public interface TransactionService {
     public List<Transaction> listTransactionsbyAccountIban(String ibanNumber);
 
     public Void deleteTransactionById(Long id);
+
 
 }
