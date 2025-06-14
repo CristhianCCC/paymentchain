@@ -1,0 +1,56 @@
+# === Java y Maven ===
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# Archivos de logs
+*.log
+
+# Archivos de compilación
+*.iml
+*.hprof
+
+# === Archivos de configuración del sistema operativo ===
+.DS_Store
+Thumbs.db
+
+# === IDEs ===
+
+# IntelliJ
+.idea/
+*.iws
+*.ipr
+
+# VSCode
+.vscode/
+
+# Eclipse
+.project
+.classpath
+.settings/
+bin/
+
+# NetBeans
+nbproject/private/
+build/
+nbbuild/
+dist/
+.nb-gradle/
+
+# === Archivos temporales de sistema / backups ===
+*.swp
+*~
+*.bak
+
+# === Configuración local de usuario ===
+*.env
+.env
+
+# === Submódulos o repositorios anidados ===
+**/.git/
+
+# === Otros ===
+# Evita subir archivos de configuración personal o de sistema
+*.tmp
