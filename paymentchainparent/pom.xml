@@ -85,6 +85,7 @@
       <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
 
+
   </dependencies>
 
   <build>
@@ -135,6 +136,31 @@
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>3.6.3</version>
       </plugin>
+
+      <!--plugin de spotify para automatizar la creacion de imagenes-->
+      <plugin>
+        <groupId>com.spotify</groupId>
+        <artifactId>dockerfile-maven-plugin</artifactId>
+        <version>${dockerfile-maven-version}</version>
+        <executions>
+          <execution>
+            <id>build-docker-image</id>
+            <phase>package</phase>
+            <goals>
+              <goal>build</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <repository>paymentchain/microservice-docker-${project.artifactId}</repository>
+          <tag>${project.version}</tag>
+          <buildArgs>
+            <!--va a tomar el jar de cada uno de los jar de los microservicios-->
+            <JAR_FILE>/target/${project.build.finalName}.jar</JAR_FILE>
+          </buildArgs>
+        </configuration>
+      </plugin>
+
     </plugins>
   </build>
 

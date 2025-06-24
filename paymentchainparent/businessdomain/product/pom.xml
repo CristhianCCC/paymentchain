@@ -17,6 +17,15 @@
 	<name>product</name>
 	<description>Creacion del servicio de product</description>
 
+
+	<dependencies>
+		<!-- Driver PostgreSQL necesario para conectarse a la base de datos -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+		</dependency>
+	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>

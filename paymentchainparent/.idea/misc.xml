@@ -8,6 +8,7 @@
         <option value="$PROJECT_DIR$/infraestructuredomain/eurekaserver/pom.xml" />
         <option value="$PROJECT_DIR$/billing/pom.xml" />
         <option value="$PROJECT_DIR$/infraestructuredomain/springBootAdmin/pom.xml" />
+        <option value="$PROJECT_DIR$/infraestructuredomain/configserver/pom.xml" />
       </list>
     </option>
   </component>
