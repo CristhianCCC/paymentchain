@@ -9,6 +9,8 @@
         <option value="$PROJECT_DIR$/billing/pom.xml" />
         <option value="$PROJECT_DIR$/infraestructuredomain/springBootAdmin/pom.xml" />
         <option value="$PROJECT_DIR$/infraestructuredomain/configserver/pom.xml" />
+        <option value="$PROJECT_DIR$/infraestructuredomain/apigateway/pom.xml" />
+        <option value="$PROJECT_DIR$/infraestructuredomain/keycloackAdapter/pom.xml" />
       </list>
     </option>
   </component>

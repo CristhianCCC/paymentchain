@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: infraestructureDomain-apigateway
+  cloud:
+    gateway:
+      routes:
+        - id: customer_service
+          uri: lb://BUSINESSDOMAIN-CUSTOMER
+          predicates:
+            - Path=/**
+  logging:
+    level:
+      org.springframework.cloud.gateway: DEBUG
+      reactor.netty.http.client: DEBUG
+server:
+  port: 8095
+
+#Registrando apigateway a eureka
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}

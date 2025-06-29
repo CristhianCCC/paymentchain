@@ -12,6 +12,21 @@ services:
         -Xms256M
         -Xmx256M
 
+
+  api-gateway:
+    container_name: id-gateway
+    image: paymentchain/microservice-docker-apigateway:0.0.1-SNAPSHOT
+    environment:
+      - JAVA_OPTS=
+        -Xms256M
+        -Xmx256M
+        -DEUREKA_SERVER=http://registry-discovery:8761/eureka/
+    depends_on:
+      - registry-discovery
+    ports:
+      - 8095:8095
+
+
   product-catalog:
     container_name: bd-product-catalog
     image: paymentchain/microservice-docker-product:0.0.1-SNAPSHOT
@@ -36,8 +51,6 @@ services:
 
     depends_on:
       - registry-discovery
-    ports:
-      - 8081:8080
 
 #para la creacion de la base de datos
   postgres_db:
@@ -66,5 +79,35 @@ services:
     depends_on:
       - postgres_db
 
+
+  keycloack:
+    container_name: keycloackAdapter
+    image: paymentchain/microservice-docker-keycloack-adapter:0.0.1-SNAPSHOT
+    #All projets will have a variable value  DEUREKA_SERVER this tell where find a registry-discovery server
+    environment:
+      - JAVA_OPTS=
+        -Xms256M
+        -Xmx256M
+        -DEUREKA_SERVER=http://registry-discovery:8761/eureka/
+        -DKEYCLOACK_SERVER=http://keycloack_server:8080/auth/realms/
+        -DKEYCLOACK_REAL_ID=rRN5N03gRU15Z_YeTERk_SSW4qPrcnJWkokoqpjR2fA
+      #-Dspring.cloud.config.server.native.searchLocations=/var/config-data
+    depends_on:
+      - registry-discovery
+    ports:
+      - 8088:8088
+
+  keycloak_server:
+    container_name: id-keycloak
+    image: quay.io/keycloak/keycloak:22.0.5
+    restart: always
+    command: start-dev
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    ports:
+      - 8091:8080
+
+#para iniciar la orquestacion de contenedores docker compose -f C:\Users\Janus\Desktop\paymentchain\paymentchainparent/docker-compose.yml up -d --force-recreate
 
 

@@ -12,10 +12,14 @@
     <file url="file://$PROJECT_DIR$/businessdomain/transaction/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/config-server-repo/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/config-server-repo/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/infraestructuredomain/apigateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/infraestructuredomain/apigateway/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/infraestructuredomain/configserver/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/infraestructuredomain/configserver/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/infraestructuredomain/eurekaserver/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/infraestructuredomain/eurekaserver/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/infraestructuredomain/keycloackAdapter/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/infraestructuredomain/keycloackAdapter/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/infraestructuredomain/springBootAdmin/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/infraestructuredomain/springBootAdmin/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/infraestructuredomain/src/main/java" charset="UTF-8" />

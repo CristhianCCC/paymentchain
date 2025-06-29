@@ -8,7 +8,9 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="eurekaserver" />
+        <module name="apigateway" />
         <module name="product" />
+        <module name="keycloack-adapter" />
         <module name="configserver" />
         <module name="config-server-repo" />
         <module name="transaction" />
@@ -31,6 +33,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="billing" options="-parameters" />
+      <module name="keycloack-adapter" options="" />
       <module name="product" options="-parameters" />
       <module name="transaction" options="-parameters" />
     </option>
